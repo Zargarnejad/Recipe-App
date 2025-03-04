@@ -1,0 +1,205 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/***********************************************
+  Global stylesheet
+ ***********************************************/
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Fira sans;
+}
+
+html {
+  font-size: 100%;
+}
+body {
+  max-width: 100rem;
+  margin: 0 auto;
+}
+
+h2.mainTitles {
+  color:#e92d28;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: 2.37rem;
+  font-weight: 600;
+}
+
+p {
+  text-align: justify;
+  margin-bottom: 1.5rem;
+}
+
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.buttonstyle {
+  color: black;
+  font-weight: 400;
+  background-color: rgb(222, 222, 222);
+  border-color:  rgb(222, 222, 222);
+  text-align: center;
+  border-radius: 1rem;
+  padding: 0.72rem 2rem;
+  margin-top: 1rem;
+  border-style: solid;
+}
+.buttonstyle:hover {
+  cursor: pointer;
+  background-color: #e92d28;
+  color: #f4f4f5;
+}
+/***********************************************
+  NavBar stylesheet
+ ***********************************************/
+
+nav {
+  padding: 1rem 2rem;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 1.06rem;
+}
+
+.menuItem {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+#logo {
+  font-weight: bold;
+  color: #e92d28;
+}
+
+
+/***********************************************
+  Header stylesheet
+ ***********************************************/
+
+.Container {
+  background-color: #f4f4f5;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+}
+.foodImageDiv {
+  width: 50%;
+}
+
+.foodImageDiv > img {
+  border-radius: 1.5rem;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.recipeContent {
+  width: 50%;
+  line-height: 1.5rem;
+  font-size: large;
+  font-weight: 400;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.ingredientsList {
+  width: 50%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  line-height: 2rem;
+  list-style-type: disc;
+
+}
+.ingredientsList > li {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 450;
+  gap: 2rem;
+  
+}
+
+.recipeDescription {
+  margin-top: 1.5rem;
+}
+
+.formStyle {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.formItemsContainer {
+  display: none;
+  background-color: #f4f4f5;
+  margin: auto;
+  max-width: 50%;
+  border-radius: 1rem;
+  flex-direction: column;
+}
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.formInput {
+  width: 50%;
+  height: 2rem;
+}
+#descriptionArea {
+  height: 5rem;
+}
+#addIng{
+    text-align: left;
+    margin-left: 2rem;
+}
+
+#formBtnRow {
+  text-align: center;
+}
+#ingredientsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ingInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btnMouseOver {
+  background-color: #e92d28;
+  color: white;
+}
+.btnMouseOut {
+  background-color: lightgray;
+  color: black;
+}
+
