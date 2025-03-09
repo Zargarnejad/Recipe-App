@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="./stylesheet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="navBar">
+      <a id="logo">YummyDish</a>
+      <h2>Recipes for Every Taste</h2>
+      <button id="addRecipeBtn" class="buttonstyle" >
+        Add recipe
+      </button>
+    </nav>
+
+    <div id="recipesContainer"></div>
+
+    <div id="formItemsContainer" class="formItemsContainer">
+      <form action="" class="formStyle" id="addRecipeForm">
+        <h2 class="mainTitles">Add Your Recipe</h2>
+        <div class="formRow">
+          <label for="Title">Title</label>
+          <input name="title" id="title" type="text" class="formInput" />
+        </div>
+        <div class="formRow">
+          <label for="Picture">Picture URL</label>
+          <input name="picture" id="picture" type="text" class="formInput" />
+        </div>
+        <div class="formRow">
+          <label for="description"> Description</label>
+          <textarea
+            name="description"
+            class="formInput"
+            id="descriptionArea"
+          ></textarea>
+        </div>
+        <p>Ingredients</p>
+
+        <div id="ingredientsContainer">
+          <div class="ingInfo">
+            <label for="ingName0">Name: </label>
+            <input id="ingName0" name="ingName" type="text" class="formInput" />
+            <label for="ingAmount0">Amount:</label>
+            <input
+              id="ingAmount0"
+              name="ingAmount"
+              type="text"
+              class="formInput"
+            />
+          </div>
+          <div class="ingInfo">
+            <label for="ingName1">Name: </label>
+            <input id="ingName1" name="ingName" type="text" class="formInput" />
+            <label for="ingAmount1">Amount:</label>
+            <input
+              id="ingAmount1"
+              name="ingAmount"
+              type="text"
+              class="formInput"
+            />
+          </div>
+          <div class="ingInfo">
+            <label for="ingName2">Name: </label>
+            <input id="ingName2" name="ingName" type="text" class="formInput" />
+            <label for="ingAmount2">Amount:</label>
+            <input
+              id="ingAmount2"
+              name="ingAmount"
+              type="text"
+              class="formInput"
+            />
+          </div>
+          <div class="ingInfo">
+            <label for="ingName3">Name: </label>
+            <input id="ingName3" name="ingName" type="text" class="formInput" />
+            <label for="ingAmount3">Amount:</label>
+            <input
+              id="ingAmount3"
+              name="ingAmount"
+              type="text"
+              class="formInput"
+            />
+          </div>
+          <div class="ingInfo">
+            <label for="ingName4">Name: </label>
+            <input id="ingName4" name="ingName" type="text" class="formInput" />
+            <label for="ingAmount4">Amount:</label>
+            <input
+              id="ingAmount4"
+              name="ingAmount"
+              type="text"
+              class="formInput"
+            />
+          </div>
+        </div>
+      </form>
+      <div id="addIng">
+        <button class="buttonstyle" onclick="addIngredient()">
+          Add ingredient
+        </button>
+      </div>
+      <div id="formBtnRow">
+        <button class="buttonstyle" id="saveBtn" onclick="saveBtnClicked()">
+          Save
+        </button>
+        <button class="buttonstyle" id="cancelBtn" onclick="cancelBtnClicked()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
