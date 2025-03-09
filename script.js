@@ -23,6 +23,10 @@ const recipes = [
 let recipeCounter = 1;
 let ingredientNumber = 4;
 
+document
+  .getElementById("addRecipeBtn")
+  .addEventListener("click", addRecipeClick);
+
 //*******************  show recipes in the page **********************/
 
 function addRecipeToPage(recipeObject) {
@@ -52,7 +56,7 @@ function addRecipeToPage(recipeObject) {
   descriptionContainer.appendChild(foodName);
 
   const ingredientsTitle = document.createElement("p");
-  ingredientsTitle.innerText = "Ingradients:";
+  ingredientsTitle.innerText = "Ingredients:";
   ingredientsTitle.style.textDecoration = "underline";
   descriptionContainer.appendChild(ingredientsTitle);
 
@@ -60,14 +64,16 @@ function addRecipeToPage(recipeObject) {
   ingredientsList.classList.add("ingredientsList");
 
   for (let i = 0; i < recipeObject.ingredients.length; i++) {
-    let listItem = document.createElement("li");
-    let listItemName = document.createElement("div");
-    let listItemAmount = document.createElement("div");
-    listItem.appendChild(listItemName);
-    listItem.appendChild(listItemAmount);
-    listItemName.innerText = recipeObject.ingredients[i].NAME;
-    listItemAmount.innerText = recipeObject.ingredients[i].AMOUNT;
-    ingredientsList.appendChild(listItem);
+    if (recipeObject.ingredients[i].AMOUNT != undefined) {
+      let listItem = document.createElement("li");
+      let listItemName = document.createElement("div");
+      let listItemAmount = document.createElement("div");
+      listItem.appendChild(listItemName);
+      listItem.appendChild(listItemAmount);
+      listItemName.innerText = recipeObject.ingredients[i].NAME;
+      listItemAmount.innerText = recipeObject.ingredients[i].AMOUNT;
+      ingredientsList.appendChild(listItem);
+    }
   }
   descriptionContainer.appendChild(ingredientsList);
 
@@ -81,15 +87,6 @@ function addRecipeToPage(recipeObject) {
   descriptionContainer.appendChild(descriptionTitle);
   descriptionContainer.appendChild(description);
 }
-
-//**************** Add new recipe Button *****************/
-const addRecipeBtn = document.getElementById("addRecipeBtn");
-addRecipeBtn.addEventListener("mouseover", function (e) {
-  addRecipeBtn.classList.add("btnMouseOver");
-});
-addRecipeBtn.addEventListener("mouseout", function (e) {
-  addRecipeBtn.classList.remove("btnMouseOver");
-});
 
 //**************** Form visible  *****************/
 
