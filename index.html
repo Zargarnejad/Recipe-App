@@ -16,12 +16,29 @@
     <nav id="navBar">
       <a id="logo">YummyDish</a>
       <h2>Recipes for Every Taste</h2>
-      <button id="addRecipeBtn" class="buttonstyle" >
-        Add recipe
-      </button>
+      <button id="addRecipeBtn" class="buttonstyle">Add recipe</button>
     </nav>
-
-    <div id="recipesContainer"></div>
+    <div class="titleBox">
+      <h1>Recipes</h1>
+      <p class="heroMessage">
+        " Don’t be afraid to experiment — some of the best recipes are happy
+        accidents! "
+      </p>
+      <div class="searchContainer">
+        <input
+          id="search"
+          class="inputStyle"
+          type="text"
+          placeholder=" Type here to search... "
+        />
+        <button id="searchBtn" class="buttonstyle">Search</button>
+      </div>
+    </div>
+    <div class="sortContainer">
+      <button id="sortAscBtn" class="buttonstyle">Ingredient - Ascending</button>
+      <button id="sortDesBtn" class="buttonstyle">Ingredient - Descending</button>
+    </div>
+    <div id="cards-container"></div>
 
     <div id="formItemsContainer" class="formItemsContainer">
       <form action="" class="formStyle" id="addRecipeForm">
@@ -33,6 +50,10 @@
         <div class="formRow">
           <label for="Picture">Picture URL</label>
           <input name="picture" id="picture" type="text" class="formInput" />
+        </div>
+        <div class="formRow">
+          <label for="catefory">Category</label>
+          <input name="category" id="category" type="text" class="formInput" />
         </div>
         <div class="formRow">
           <label for="description"> Description</label>
