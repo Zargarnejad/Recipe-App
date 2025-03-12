@@ -4,8 +4,7 @@ const recipes = [
     id: 1,
     title: "Gløgg",
     picture_url:
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Gl%C3%B6gg_kastrull.JPG/800px-Gl%C3%B6gg_kastrull.JPG",
-      // "https://www.santamariaworld.com/optimized/maximum/globalassets/_recipes/christmas-recipes/vit-glogg-med-kanel-kardemumma-och-apelsin.jpg",
+      "https://www.santamariaworld.com/optimized/maximum/globalassets/_recipes/christmas-recipes/vit-glogg-med-kanel-kardemumma-och-apelsin.jpg",
     ingredients: [
       { NAME: "Orange zest", AMOUNT: "0.5" },
       { NAME: "Water", AMOUNT: "200 ml" },
@@ -175,7 +174,7 @@ function showRecipesInGrid() {
     const cardRecipeCategory = document.createElement("p");
     cardRecipeCategory.classList.add("card-category");
     recipeCard.appendChild(cardRecipeCategory);
-    cardRecipeCategory.innerText =  recipes[i].category;
+    cardRecipeCategory.innerText = recipes[i].category;
 
     /* add title */
     const cardTitleLink = document.createElement("a");
@@ -237,67 +236,6 @@ function addRecipeToGrid(recipeObject) {
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
 }
 
-//*******************  show recipes in the page **********************/
-
-// function addRecipeToPage(recipeObject) {
-//   const recipePart = document.createElement("div");
-//   recipePart.classList.add("Container");
-//   const recipesContainer = document.getElementById("recipesContainer");
-//   recipesContainer.appendChild(recipePart);
-
-//   //*************** structure of show of recipes
-
-//   const foodImageContainer = document.createElement("div");
-//   foodImageContainer.classList.add("foodImageDiv");
-//   recipePart.appendChild(foodImageContainer);
-//   const foodImage = document.createElement("img");
-//   foodImage.src = recipeObject.picture_url;
-//   foodImageContainer.appendChild(foodImage);
-
-//   //***************
-
-//   const descriptionContainer = document.createElement("div");
-//   descriptionContainer.classList.add("recipeContent");
-//   recipePart.appendChild(descriptionContainer);
-
-//   const foodName = document.createElement("h2");
-//   foodName.classList.add("mainTitles");
-//   foodName.innerText = recipeObject.title;
-//   descriptionContainer.appendChild(foodName);
-
-//   const ingredientsTitle = document.createElement("p");
-//   ingredientsTitle.innerText = "Ingredients:";
-//   ingredientsTitle.style.textDecoration = "underline";
-//   descriptionContainer.appendChild(ingredientsTitle);
-
-//   const ingredientsList = document.createElement("ul");
-//   ingredientsList.classList.add("ingredientsList");
-
-//   for (let i = 0; i < recipeObject.ingredients.length; i++) {
-//     if (recipeObject.ingredients[i].AMOUNT != undefined) {
-//       let listItem = document.createElement("li");
-//       let listItemName = document.createElement("div");
-//       let listItemAmount = document.createElement("div");
-//       listItem.appendChild(listItemName);
-//       listItem.appendChild(listItemAmount);
-//       listItemName.innerText = recipeObject.ingredients[i].NAME;
-//       listItemAmount.innerText = recipeObject.ingredients[i].AMOUNT;
-//       ingredientsList.appendChild(listItem);
-//     }
-//   }
-//   descriptionContainer.appendChild(ingredientsList);
-
-//   const descriptionTitle = document.createElement("p");
-//   descriptionTitle.classList.add("recipeDescription");
-//   descriptionTitle.innerText = "Description:";
-//   descriptionTitle.style.textDecoration = "underline";
-//   const description = document.createElement("p");
-
-//   description.innerText = recipeObject.description;
-//   descriptionContainer.appendChild(descriptionTitle);
-//   descriptionContainer.appendChild(description);
-// }
-
 // //**************** Form visible  *****************/
 
 function addRecipeClick() {
@@ -334,7 +272,7 @@ function saveBtnClicked() {
     picture_url: pictureUrlValue,
     ingredients: ingredientsList,
     description: descriptionValue,
-    category:categoryValue,
+    category: categoryValue,
   };
   recipes.push(newRecipe);
 
@@ -429,4 +367,3 @@ function sortDesClicked() {
   });
 }
 
-// addRecipeToPage(recipes[0]);
