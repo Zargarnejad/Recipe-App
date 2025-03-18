@@ -270,27 +270,29 @@ nav {
 .moreInfo {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:space-between;
   gap: 1rem;
   position: relative;
   margin-top: 1rem;
 }
 
-.card-ing {
-  color: #e92d28;
+.card-ing{
+  color:#e92d28;
   font-size: small;
   font-weight: 400;
   /* margin-top: 1rem; */
-  /* margin-left: 1 rem; */
+/* margin-left: 1 rem; */
 }
 
-.cardCookTime {
-  color: #e92d28;
+.cardCookTime{
+  color:#e92d28;
   font-size: small;
   font-weight: 400;
   /* margin-top: 1rem; */
+  
 }
-.inputStyle {
+
+.inputStyle{
   border: #f4f4f5;
   border-radius: 2rem;
   color: #e92d28;
@@ -299,11 +301,45 @@ nav {
   padding: 1rem;
 }
 
-.sortContainer {
+
+.sortContainer{
   text-align: center;
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+/* ***************** Timer Box styles ***************** */
+/* **************************************************** */
+
+
+#timeContainer{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+#timeInput{
+  font-size: 2rem;
+  border-radius: 1rem;
+  height: 3rem;
+  width: 6rem;
+  text-align: center;
+  
+}
+#timeLable{
+  font-size: 2rem;
+}
+#timeDisplay{
+  font-size: 3rem;
+  color: #e92d28;
 }

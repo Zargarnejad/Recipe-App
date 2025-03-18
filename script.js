@@ -16,7 +16,10 @@ document.getElementById("sortAscBtn").addEventListener("click", sortAsc);
 
 document.getElementById("sortDesBtn").addEventListener("click", sortDes);
 
-//********************* show recipes in grid **********************/
+//*********************************** show recipes in grid **************************************/
+
+// ************************* Functions **************************/
+// *************************************************************/
 
 function showRecipesInGrid() {
   const recipesContainer = document.getElementById("cards-container");
@@ -60,6 +63,15 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
 
+  // add cooking time
+  const recipeCookingTime = document.createElement("div");
+  recipeCookingTime.classList.add("cardCookTime");
+  const cooktime = document.createElement("p");
+  cooktime.classList.add("card-ing");
+  recipeCookingTime.appendChild(cooktime);
+  recipeMoreInfo.appendChild(recipeCookingTime);
+  cooktime.innerText = recipeObject.cooking_time;
+
   /* add amount of ingrediant */
   const cardRecipeIng = document.createElement("p");
   cardRecipeIng.classList.add("card-ing");
@@ -68,7 +80,7 @@ function addRecipeToGrid(recipeObject) {
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
 }
 
-//**************** Form visible  *****************/
+//************************ Form visible *************************/
 
 function addRecipeClick() {
   const formShow = document.getElementById("formItemsContainer");
@@ -81,7 +93,7 @@ function cancelBtnClicked() {
   formShow.style.display = "none";
 }
 
-//**************** Add new recipe  *****************/
+//************************ Add new recipe **************************/
 
 function saveBtnClicked() {
   recipeCounter = recipeCounter + 1;
@@ -112,7 +124,7 @@ function saveBtnClicked() {
   cancelBtnClicked();
 }
 
-//**************** Add new ingredient Button *****************/
+//*************************** Add new ingredient **************************/
 
 function addIngredient() {
   ingredientNumber = ingredientNumber + 1;
@@ -148,8 +160,8 @@ function addIngredient() {
   ingredientsContainer.appendChild(newDiv);
 }
 
-// //**************** Search betwween recipes *****************/
-function searchRecipe() {
+// //************************ Search between recipes ************************/
+function searchClicked() {
   const searchTextBox = document.getElementById("search");
   const searchTextBoxValue = searchTextBox.value.toLowerCase();
   const recipesContainer = document.getElementById("cards-container");
@@ -162,7 +174,7 @@ function searchRecipe() {
     addRecipeToGrid(item);
   });
 }
-//**************** Sort Ingredients *****************/
+//**************** Sort amount of ngredients *****************/
 
 function sortAsc() {
   recipes.sort(function (recipeA, recipeB) {
@@ -188,4 +200,66 @@ function sortDes() {
     return 0;
   });
   showRecipesInGrid();
+}
+
+//*************************** Set cooking timer ******************************/
+
+let startTimeInMin = 0;
+let timerId;
+let hrs = 0;
+let mins = 0;
+let secs = 0;
+
+const startBtn = document.getElementById("startBtn");
+startBtn.addEventListener("click", startBtnClicked);
+const pauseBtn = document.getElementById("pauseBtn");
+pauseBtn.addEventListener("click", pauseBtnClicked);
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", resetBtnClicked);
+
+function recipeCookingTimeClicked(cookingTime) {
+  const timerShow = document.getElementById("timeContainer");
+  timerShow.style.display = "flex";
+
+  document.getElementById("timeInput").value = cookingTime;
+  const displayTime = document.getElementById("timeDisplay");
+  displayTime.innerText = hrs + ":" + mins + ":" + secs;
+
+  hrs = Math.floor(cookingTime / 1000 / 60 / 60);
+  hrs.innerHTML = hrs;
+  mins = Math.floor(cookingTime / 1000 / 60) % 60;
+  mins.innerHTML = mins;
+  secs = Math.floor(cookingTime / 1000) % 60;
+  secs.innerHTML = secs;
+  
+}
+
+function startBtnClicked() {
+  if (startTimeInMin === 0) {
+    startTimeInMin = document.getElementById("timeInput").value;
+  }
+  timerId = setInterval(() => {
+    startTimeInMin--;
+    console.log(startTimeInMin);
+    if (startTimeInMin === 0) {
+      clearInterval(timerId);
+      startBtn.removeAttribute("disabled");
+    }
+  }, 1000);
+  startBtn.setAttribute("disabled", true);
+  pauseBtn.removeAttribute("disabled");
+  resetBtn.removeAttribute("disabled");
+}
+
+function pauseBtnClicked() {
+  clearInterval(timerId);
+  // console.log("clicked");
+  startBtn.removeAttribute("disabled");
+}
+
+function resetBtnClicked() {
+  clearInterval(timerId);
+  // console.log("clicked");
+  startTimeInMin = document.getElementById("timeInput").value;
+  startBtn.removeAttribute("disabled");
 }
