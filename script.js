@@ -1,25 +1,3 @@
-//  ***********************  data base  ********************
-const recipes = [
-  {
-    id: 1,
-    title: "Gløgg",
-    picture_url:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Gl%C3%B6gg_kastrull.JPG/800px-Gl%C3%B6gg_kastrull.JPG",
-    ingredients: [
-      { NAME: "Orange zest", AMOUNT: "0.5" },
-      { NAME: "Water", AMOUNT: "200 ml" },
-      { NAME: "Sugar", AMOUNT: "275 g" },
-      { NAME: "Whole cloves", AMOUNT: "5" },
-      { NAME: "Cinnamon sticks", AMOUNT: "2" },
-      { NAME: "Spice", AMOUNT: undefined },
-      { NAME: "Bottle of red wine", AMOUNT: "1" },
-      { NAME: "Raisins", AMOUNT: "100 g" },
-      { NAME: "Slipped Almonds", AMOUNT: "50 g" },
-    ],
-    description: "Mix everything, heat it, and you are good to go!",
-  },
-];
-
 let recipeCounter = 1;
 let ingredientNumber = 4;
 
@@ -27,65 +5,67 @@ document
   .getElementById("addRecipeBtn")
   .addEventListener("click", addRecipeClick);
 
-//*******************  show recipes in the page **********************/
+document.getElementById("searchBtn").addEventListener("click", searchRecipe);
+document.getElementById("search").addEventListener("keyup", (e) => {
+  if (e.key === "Enter") {
+    searchRecipe();
+  }
+});
 
-function addRecipeToPage(recipeObject) {
-  const recipePart = document.createElement("div");
-  recipePart.classList.add("Container");
-  const recipesContainer = document.getElementById("recipesContainer");
-  recipesContainer.appendChild(recipePart);
+document.getElementById("sortAscBtn").addEventListener("click", sortAsc);
 
-  //*************** structure of show of recipes
+document.getElementById("sortDesBtn").addEventListener("click", sortDes);
 
-  const foodImageContainer = document.createElement("div");
-  foodImageContainer.classList.add("foodImageDiv");
-  recipePart.appendChild(foodImageContainer);
+//********************* show recipes in grid **********************/
+
+function showRecipesInGrid() {
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.innerHTML = "";
+  recipes.forEach((recipe) => {
+    addRecipeToGrid(recipe);
+  });
+}
+
+showRecipesInGrid();
+
+//********************* Add a new recipe in grid **********************/
+
+function addRecipeToGrid(recipeObject) {
+  const recipeCard = document.createElement("div");
+  recipeCard.classList.add("cards");
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.appendChild(recipeCard);
+
+  /* add image */
+  const cardPicture = document.createElement("a");
+  cardPicture.classList.add("card-picture");
+  recipeCard.appendChild(cardPicture);
   const foodImage = document.createElement("img");
   foodImage.src = recipeObject.picture_url;
-  foodImageContainer.appendChild(foodImage);
+  foodImage.classList.add("card-img");
+  cardPicture.appendChild(foodImage);
 
-  //***************
+  /* add category */
+  const cardRecipeCategory = document.createElement("p");
+  cardRecipeCategory.classList.add("card-category");
+  recipeCard.appendChild(cardRecipeCategory);
+  cardRecipeCategory.innerText = recipeObject.category;
 
-  const descriptionContainer = document.createElement("div");
-  descriptionContainer.classList.add("recipeContent");
-  recipePart.appendChild(descriptionContainer);
+  /* add title */
+  const cardTitleLink = document.createElement("a");
+  cardTitleLink.classList.add("card-title-link");
+  const cardTitle = document.createElement("h2");
+  cardTitle.classList.add("card-title");
+  cardTitle.innerText = recipeObject.title;
+  cardTitleLink.appendChild(cardTitle);
+  recipeCard.appendChild(cardTitleLink);
 
-  const foodName = document.createElement("h2");
-  foodName.classList.add("mainTitles");
-  foodName.innerText = recipeObject.title;
-  descriptionContainer.appendChild(foodName);
-
-  const ingredientsTitle = document.createElement("p");
-  ingredientsTitle.innerText = "Ingredients:";
-  ingredientsTitle.style.textDecoration = "underline";
-  descriptionContainer.appendChild(ingredientsTitle);
-
-  const ingredientsList = document.createElement("ul");
-  ingredientsList.classList.add("ingredientsList");
-
-  for (let i = 0; i < recipeObject.ingredients.length; i++) {
-    if (recipeObject.ingredients[i].AMOUNT != undefined) {
-      let listItem = document.createElement("li");
-      let listItemName = document.createElement("div");
-      let listItemAmount = document.createElement("div");
-      listItem.appendChild(listItemName);
-      listItem.appendChild(listItemAmount);
-      listItemName.innerText = recipeObject.ingredients[i].NAME;
-      listItemAmount.innerText = recipeObject.ingredients[i].AMOUNT;
-      ingredientsList.appendChild(listItem);
-    }
-  }
-  descriptionContainer.appendChild(ingredientsList);
-
-  const descriptionTitle = document.createElement("p");
-  descriptionTitle.classList.add("recipeDescription");
-  descriptionTitle.innerText = "Description:";
-  descriptionTitle.style.textDecoration = "underline";
-  const description = document.createElement("p");
-
-  description.innerText = recipeObject.description;
-  descriptionContainer.appendChild(descriptionTitle);
-  descriptionContainer.appendChild(description);
+  /* add amount of ingrediant */
+  const cardRecipeIng = document.createElement("p");
+  cardRecipeIng.classList.add("card-ing");
+  cardTitleLink.appendChild(cardRecipeIng);
+  recipeCard.appendChild(cardTitleLink);
+  cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
 }
 
 //**************** Form visible  *****************/
@@ -106,27 +86,29 @@ function cancelBtnClicked() {
 function saveBtnClicked() {
   recipeCounter = recipeCounter + 1;
 
-  let titleValue = document.getElementById("title").value;
-  let pictureUrlValue = document.getElementById("picture").value;
-  let descriptionValue = document.getElementById("descriptionArea").value;
-  let ingredientsList = [];
+  const title = document.getElementById("title").value;
+  const picture_url = document.getElementById("picture").value;
+  const description = document.getElementById("descriptionArea").value;
+  const category = document.getElementById("category").value;
+  const ingredientsList = [];
   for (let i = 0; i <= ingredientNumber; i++) {
-    let nameValue = document.getElementById("ingName" + i).value;
-    let amountValue = document.getElementById("ingAmount" + i).value;
-    let newIng = { NAME: nameValue, AMOUNT: amountValue };
+    const nameValue = document.getElementById("ingName" + i).value;
+    const amountValue = document.getElementById("ingAmount" + i).value;
+    const newIng = { NAME: nameValue, AMOUNT: amountValue };
     ingredientsList.push(newIng);
   }
 
   const newRecipe = {
     id: recipeCounter,
-    title: titleValue,
-    picture_url: pictureUrlValue,
+    title,
+    picture_url,
     ingredients: ingredientsList,
-    description: descriptionValue,
+    description,
+    category,
   };
   recipes.push(newRecipe);
 
-  addRecipeToPage(newRecipe);
+  addRecipeToGrid(newRecipe);
   cancelBtnClicked();
 }
 
@@ -166,4 +148,44 @@ function addIngredient() {
   ingredientsContainer.appendChild(newDiv);
 }
 
-addRecipeToPage(recipes[0]);
+// //**************** Search betwween recipes *****************/
+function searchRecipe() {
+  const searchTextBox = document.getElementById("search");
+  const searchTextBoxValue = searchTextBox.value.toLowerCase();
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.innerHTML = "";
+
+  const searchResult = recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(searchTextBoxValue)
+  );
+  searchResult.forEach((item) => {
+    addRecipeToGrid(item);
+  });
+}
+//**************** Sort Ingredients *****************/
+
+function sortAsc() {
+  recipes.sort(function (recipeA, recipeB) {
+    if (recipeA.ingredients.length > recipeB.ingredients.length) {
+      return 1;
+    }
+    if (recipeA.ingredients.length < recipeB.ingredients.length) {
+      return -1;
+    }
+    return 0;
+  });
+  showRecipesInGrid();
+}
+
+function sortDes() {
+  recipes.sort(function (recipeA, recipeB) {
+    if (recipeA.ingredients.length < recipeB.ingredients.length) {
+      return 1;
+    }
+    if (recipeA.ingredients.length > recipeB.ingredients.length) {
+      return -1;
+    }
+    return 0;
+  });
+  showRecipesInGrid();
+}

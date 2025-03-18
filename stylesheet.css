@@ -19,7 +19,7 @@ body {
 }
 
 h2.mainTitles {
-  color:#e92d28;
+  color: #e92d28;
   text-align: center;
   margin-bottom: 2rem;
   margin-top: 2rem;
@@ -51,21 +51,25 @@ a:active {
   text-decoration: none;
 }
 
-.buttonstyle {
+.button-primary {
   color: black;
   font-weight: 400;
   background-color: rgb(222, 222, 222);
-  border-color:  rgb(222, 222, 222);
+  border-color: rgb(222, 222, 222);
   text-align: center;
   border-radius: 1rem;
   padding: 0.72rem 2rem;
   margin-top: 1rem;
   border-style: solid;
 }
-.buttonstyle:hover {
+.button-primary:hover {
   cursor: pointer;
   background-color: #e92d28;
   color: #f4f4f5;
+}
+.button-primary:disabled {
+  background-color: darkgray;
+  color: #e92d28;
 }
 /***********************************************
   NavBar stylesheet
@@ -93,7 +97,6 @@ nav {
   color: #e92d28;
 }
 
-
 /***********************************************
   Header stylesheet
  ***********************************************/
@@ -105,7 +108,7 @@ nav {
   justify-content: space-between;
   gap: 1rem;
   margin: 2.5rem;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 1.5rem;
 }
 .foodImageDiv {
@@ -133,14 +136,12 @@ nav {
   padding-right: 2rem;
   line-height: 2rem;
   list-style-type: disc;
-
 }
 .ingredientsList > li {
   display: flex;
   justify-content: space-between;
   font-weight: 450;
   gap: 2rem;
-  
 }
 
 .recipeDescription {
@@ -173,9 +174,9 @@ nav {
 #descriptionArea {
   height: 5rem;
 }
-#addIng{
-    text-align: left;
-    margin-left: 2rem;
+.addIng {
+  text-align: left;
+  margin-left: 2rem;
 }
 
 #formBtnRow {
@@ -202,4 +203,107 @@ nav {
   background-color: lightgray;
   color: black;
 }
+/* *****************recipes page - grid ***************** */
+/* **************************************************** */
 
+.titleBox {
+  background-color: rgb(231, 230, 230);
+  height: 20rem;
+  color: black;
+  text-align: center;
+  padding-top: 5rem;
+}
+.heroMessage {
+  color: rgb(36, 36, 36);
+  font-size: large;
+  font-weight: 400;
+  margin-top: 5rem;
+  text-align: center;
+}
+
+#cards-container {
+  max-width: 1000px;
+  margin: auto;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1rf 1rf;
+  gap: 3rem;
+  position: relative;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  position: relative;
+}
+
+.card-picture {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  background-position: center;
+}
+
+.card-picture .card-img {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-category {
+  color: #e92d28;
+  font-size: medium;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+.card-title {
+  font-size: larger;
+  font-weight: 700;
+  color: black;
+  /* margin-top: 23px; */
+}
+.card-title:hover {
+  color: #e92d28;
+}
+
+.moreInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.card-ing {
+  color: #e92d28;
+  font-size: small;
+  font-weight: 400;
+  /* margin-top: 1rem; */
+  /* margin-left: 1 rem; */
+}
+
+.cardCookTime {
+  color: #e92d28;
+  font-size: small;
+  font-weight: 400;
+  /* margin-top: 1rem; */
+}
+.inputStyle {
+  border: #f4f4f5;
+  border-radius: 2rem;
+  color: #e92d28;
+  width: 20rem;
+  height: 1rem;
+  padding: 1rem;
+}
+
+.sortContainer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
