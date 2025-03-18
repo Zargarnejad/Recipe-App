@@ -86,10 +86,10 @@ function cancelBtnClicked() {
 function saveBtnClicked() {
   recipeCounter = recipeCounter + 1;
 
-  const titleValue = document.getElementById("title").value;
-  const pictureUrlValue = document.getElementById("picture").value;
-  const descriptionValue = document.getElementById("descriptionArea").value;
-  const categoryValue = document.getElementById("category").value;
+  const title = document.getElementById("title").value;
+  const picture_url = document.getElementById("picture").value;
+  const description = document.getElementById("descriptionArea").value;
+  const category = document.getElementById("category").value;
   const ingredientsList = [];
   for (let i = 0; i <= ingredientNumber; i++) {
     const nameValue = document.getElementById("ingName" + i).value;
@@ -100,11 +100,11 @@ function saveBtnClicked() {
 
   const newRecipe = {
     id: recipeCounter,
-    title: titleValue,
-    picture_url: pictureUrlValue,
+    title,
+    picture_url,
     ingredients: ingredientsList,
-    description: descriptionValue,
-    category: descriptionValue,
+    description,
+    category,
   };
   recipes.push(newRecipe);
 
