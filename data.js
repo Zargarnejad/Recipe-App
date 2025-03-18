@@ -18,7 +18,7 @@ const recipes = [
     ],
     description: "Mix everything, heat it, and you are good to go!",
     category: "Drink",
-    cooking_time: 20,
+    cooking_time: 230,
   },
   {
     id: 2,
@@ -38,7 +38,7 @@ const recipes = [
     ],
     description: "Mix everything, heat it, and you are good to go!",
     category: "Pasta",
-    cooking_time: 30,
+    cooking_time: 9,
   },
   {
     id: 3,
@@ -58,7 +58,7 @@ const recipes = [
     description:
       "To make the syrup place the orange and lemon juice in a small saucepan with the sugar, orange blossom water and star anise. Bring to the boil and simmer gently for 20 minutes. Set aside to cool to room temperature.",
     category: "Cake",
-    cooking_time: 30,
+    cooking_time: 1500,
   },
   {
     id: 4,
@@ -78,7 +78,7 @@ const recipes = [
     ],
     description: "Mix everything, put them in a bowl and enjoy it!",
     category: "Salad",
-    cooking_time: 30,
+    cooking_time: 0.2,
   },
   {
     id: 5,
