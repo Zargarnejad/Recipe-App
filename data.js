@@ -18,6 +18,7 @@ const recipes = [
     ],
     description: "Mix everything, heat it, and you are good to go!",
     category: "Drink",
+    cooking_time: 20,
   },
   {
     id: 2,
@@ -37,6 +38,7 @@ const recipes = [
     ],
     description: "Mix everything, heat it, and you are good to go!",
     category: "Pasta",
+    cooking_time: 30,
   },
   {
     id: 3,
@@ -56,6 +58,7 @@ const recipes = [
     description:
       "To make the syrup place the orange and lemon juice in a small saucepan with the sugar, orange blossom water and star anise. Bring to the boil and simmer gently for 20 minutes. Set aside to cool to room temperature.",
     category: "Cake",
+    cooking_time: 30,
   },
   {
     id: 4,
@@ -75,6 +78,7 @@ const recipes = [
     ],
     description: "Mix everything, put them in a bowl and enjoy it!",
     category: "Salad",
+    cooking_time: 30,
   },
   {
     id: 5,
@@ -93,6 +97,7 @@ const recipes = [
     description:
       "Add the chicken and brown the pieces all over until golden brown. Remove from the pan, and set aside. Place the onion, garlic, bacon and thyme into the pan and saute until the onion is softened. Take care not to burn the garlic. Turn the heat up to high.",
     category: "Chicken",
+    cooking_time: 30,
   },
   {
     id: 6,
@@ -115,6 +120,7 @@ const recipes = [
     description:
       "Dice capsicums into 1 cm square pieces. Peel carrots and julienne. Peel beetroot and julienne. Keep the beetroot separate from the other ingredients so its rich purple juice doesn’t stain the other ingredients. Cut the tomatoes into halves. Using a sharp knife cut the kernels off the corn cobs. Roughly chop the parsley and snip the chives. Make the dressing. Place 2 1/2 tablespoons olive oil, the lemon juice, capers and chilli flakes in a small glass jar with a lid. ",
     category: "Salad",
+    cooking_time: 30,
   },
   {
     id: 7,
@@ -136,5 +142,6 @@ const recipes = [
     description:
       "Heat the olive oil in a large frying pan over medium heat. Saute the garlic and chilli for a couple of minutes.  As soon as the water is boiling, add the pasta to the pot. Add the wine to the pan with the chilli and garlic and cook for a minute or two. Add the prawns and cook until they change colour and are just cooked through. By this time the pasta should be just about ready. Add the butter to the prawns and stir to coat them. Drain the pasta in a colander and then add to the prawns. Toss together with the lemon zest and parsley, check the seasoning and add salt to taste. Serve immediately.",
     category: "Pasta",
+    cooking_time: 30,
   },
 ];

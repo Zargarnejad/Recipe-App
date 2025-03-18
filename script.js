@@ -63,20 +63,35 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
 
+  /* creat a section for showing some info about food */
+  // ***************************************************/
+
+  const recipeMoreInfo = document.createElement("div");
+  recipeMoreInfo.classList.add("moreInfo");
+  recipeCard.appendChild(recipeMoreInfo);
+
   // add cooking time
   const recipeCookingTime = document.createElement("div");
   recipeCookingTime.classList.add("cardCookTime");
-  const cooktime = document.createElement("p");
+  const cooktime = document.createElement("a");
   cooktime.classList.add("card-ing");
   recipeCookingTime.appendChild(cooktime);
   recipeMoreInfo.appendChild(recipeCookingTime);
-  cooktime.innerText = recipeObject.cooking_time;
+  cooktime.innerText = recipeObject.cooking_time + " min";
+  recipeCookingTime.addEventListener("click", () => {
+    recipeCookingTimeClicked(recipeObject.cooking_time);
+  });
+
+  /* add amount of ingrediant */
+  const ingCountainer = document.createElement("div");
+  ingCountainer.classList.add("cardCookTme");
 
   /* add amount of ingrediant */
   const cardRecipeIng = document.createElement("p");
   cardRecipeIng.classList.add("card-ing");
   cardTitleLink.appendChild(cardRecipeIng);
-  recipeCard.appendChild(cardTitleLink);
+  ingCountainer.appendChild(cardRecipeIng);
+  recipeMoreInfo.appendChild(ingCountainer);
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
 }
 
@@ -161,7 +176,7 @@ function addIngredient() {
 }
 
 // //************************ Search between recipes ************************/
-function searchClicked() {
+function searchRecipe() {
   const searchTextBox = document.getElementById("search");
   const searchTextBoxValue = searchTextBox.value.toLowerCase();
   const recipesContainer = document.getElementById("cards-container");
@@ -231,7 +246,6 @@ function recipeCookingTimeClicked(cookingTime) {
   mins.innerHTML = mins;
   secs = Math.floor(cookingTime / 1000) % 60;
   secs.innerHTML = secs;
-  
 }
 
 function startBtnClicked() {
