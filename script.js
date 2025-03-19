@@ -15,8 +15,9 @@ document.getElementById("search").addEventListener("keyup", (e) => {
 document.getElementById("sortAscBtn").addEventListener("click", sortAsc);
 
 document.getElementById("sortDesBtn").addEventListener("click", sortDes);
-
-//*********************************** show recipes in grid **************************************/
+document.getElementById("closeBtn").addEventListener("click", () => {
+  document.getElementById("timeContainer").style.display = "none";
+});
 
 // ************************* Functions **************************/
 // *************************************************************/
@@ -228,7 +229,7 @@ const pauseBtn = document.getElementById("pauseBtn");
 pauseBtn.addEventListener("click", pauseBtnClicked);
 
 function recipeCookingTimeClicked(cookingTime) {
-  stopTimer()
+  stopTimer();
   const timerShow = document.getElementById("timeContainer");
   timerShow.style.display = "flex";
 
@@ -249,12 +250,22 @@ function recipeCookingTimeClicked(cookingTime) {
 }
 
 function startBtnClicked() {
-  if (startTime === 0) {
-    startTime = document.getElementById("timeInput").value * 60;
-  }
-  timerId = setInterval(() => {
+  startTime = document.getElementById("timeInput").value * 60;
+  document.getElementById("pauseBtn").innerHTML = "Pause";
+
+  startTimer();
+}
+
+function startTimer() {
+  timerId = setInterval(timerHandler, 1000);
+  startBtn.setAttribute("disabled", true);
+  pauseBtn.removeAttribute("disabled");
+  document.getElementById("timeInput").setAttribute("disabled", true);
+}
+
+function timerHandler() {
+  {
     startTime--;
-    console.log(startTime);
 
     let hrs = Math.floor(startTime / 3600);
 
@@ -275,19 +286,43 @@ function startBtnClicked() {
     displayTime.innerText = hrs + ":" + mins + ":" + secs;
     if (startTime === 0) {
       stopTimer();
+      playAlarm();
     }
-  }, 1000);
-  startBtn.setAttribute("disabled", true);
-  pauseBtn.removeAttribute("disabled");
-  document.getElementById("timeInput").setAttribute("disabled", true);
+  }
 }
 
 function pauseBtnClicked() {
-  document.getElementById("timeInput").removeAttribute("disabled");
-  stopTimer();
+  if (document.getElementById("pauseBtn").innerHTML === "Pause") {
+    document.getElementById("pauseBtn").innerHTML = "resume";
+    document.getElementById("timeInput").removeAttribute("disabled");
+
+    stopTimer();
+  } else {
+    document.getElementById("pauseBtn").innerHTML = "Pause";
+    document.getElementById("timeInput").setAttribute("disabled", true);
+    startTimer();
+  }
 }
 
 function stopTimer() {
   clearInterval(timerId);
   startBtn.removeAttribute("disabled");
 }
+
+function playAlarm() {
+  const audio = document.createElement("audio");
+  audio.setAttribute("src", "./timer-alarm.mp3");
+  audio.play();
+}
+
+//*************************** Calculate user's spent time  ******************************/
+let second = 0;
+let userTimer = document.getElementById("spentTime");
+
+function userTime() {
+  second++;
+  userTimer.innerHTML = "  " + second + " seconds";
+}
+let spentTime = setInterval(userTime, 1000);
+
+window.addEventListener("beforeunload", () => clearInterval(spentTime));

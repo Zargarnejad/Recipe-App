@@ -7,16 +7,37 @@
     <link rel="stylesheet" href="./stylesheet.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://kit.fontawesome.com/f998ffa803.js" crossorigin="anonymous"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    
     <nav id="navBar">
-      <a id="logo">YummyDish</a>
-      <h2>Recipes for Every Taste</h2>
-      <button id="addRecipeBtn" class="button-primary">Add recipe</button>
+      <div><a id="logo">YummyDish</a></div>
+      <ul class="menuContainer">
+        <li><a href="">Home</a></li>
+        <li><a href="">Recipes</a></li>
+        <li><a href="">Cuisines</a></li>
+        <li><a href="">Categories</a>
+          <ul class="dropdown">
+            <li>Appetizers</li>
+            <li>Pasta</li>
+            <li>Cake</li>
+            <li>Salad</li>
+            <li>Drink</li>
+            <li>Soup</li>
+            <li>Dessert</li>
+          </ul>
+        </li>
+        <li><a href="">Blog</a></li>
+      </ul>
+      
+      <div>
+        <button id="addRecipeBtn" class="button-primary">Add recipe</button>
+      </div>
     </nav>
     <div class="titleBox">
       <h1>Recipes</h1>
@@ -132,20 +153,51 @@
         <button class="button-primary" id="saveBtn" onclick="saveBtnClicked()">
           Save
         </button>
-        <button class="button-primary" id="cancelBtn" onclick="cancelBtnClicked()">
+        <button
+          class="button-primary"
+          id="cancelBtn"
+          onclick="cancelBtnClicked()"
+        >
           Cancel
         </button>
       </div>
     </div>
-    <div id="timeContainer">
+    <div id="timeContainer" class="timeContainer">
+      <div id="closeBtn" class="closeBtn">x</div>
       <div>
-        <input id="timeInput" type="number" value />
-        <lable id="timeLable">minutes!</lable>
+        <input id="timeInput" class="timeInput" type="number" value />
+        <lable id="timeLable" class="timeLable">minutes!</lable>
       </div>
-      <div id="timeDisplay">00:00:00</div>
+      <div id="timeDisplay" class="timeDisplay">00:00:00</div>
       <button id="startBtn" class="button-primary">Start</button>
       <button id="pauseBtn" class="button-primary" disabled>Pause</button>
     </div>
+    
+
+    <footer class="footerContainer">
+      <div>
+        <ul class="socialMediaContainer">
+          <li><a href=""><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href=""><i class="fa-brands fa-pinterest"></i></a></li>
+          <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+          <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="footerList">
+          <li><a href="">All recipes</a></li>
+          <li><a href="">Terms and Conditions</a></li>
+          <li><a href="">Contact Us</a></li>
+          <li><a href="">About Us</a></li>
+        </ul>
+      </div>
+      
+    </footer>
+<div id="userSpendTime" class="userSpendTime">
+        <p>Thank you for being here for :</p>
+        <p id="spentTime">0 second</p>
+      </div>
+      
     <script src="./data.js"></script>
     <script src="./script.js"></script>
   </body>
