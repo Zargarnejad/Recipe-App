@@ -1,5 +1,6 @@
 let recipeCounter = 1;
 let ingredientNumber = 4;
+let isTimerRunning = false;
 
 document
   .getElementById("addRecipeBtn")
@@ -15,8 +16,12 @@ document.getElementById("search").addEventListener("keyup", (e) => {
 document.getElementById("sortAscBtn").addEventListener("click", sortAsc);
 
 document.getElementById("sortDesBtn").addEventListener("click", sortDes);
+document.getElementById("closeBtn").addEventListener("click", () => {
+  document.getElementById("timeContainer").style.display = "none";
+});
 
-//********************* show recipes in grid **********************/
+// ************************* Functions **************************/
+// *************************************************************/
 
 function showRecipesInGrid() {
   const recipesContainer = document.getElementById("cards-container");
@@ -60,15 +65,39 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
 
+  /* creat a section for showing some info about food */
+  // ***************************************************/
+
+  const recipeMoreInfo = document.createElement("div");
+  recipeMoreInfo.classList.add("moreInfo");
+  recipeCard.appendChild(recipeMoreInfo);
+
+  // add cooking time
+  const recipeCookingTime = document.createElement("div");
+  recipeCookingTime.classList.add("cardCookTime");
+  const cooktime = document.createElement("a");
+  cooktime.classList.add("card-ing");
+  recipeCookingTime.appendChild(cooktime);
+  recipeMoreInfo.appendChild(recipeCookingTime);
+  cooktime.innerText = recipeObject.cooking_time + " min";
+  recipeCookingTime.addEventListener("click", () => {
+    recipeCookingTimeClicked(recipeObject.cooking_time);
+  });
+
+  /* add amount of ingrediant */
+  const ingCountainer = document.createElement("div");
+  ingCountainer.classList.add("cardCookTme");
+
   /* add amount of ingrediant */
   const cardRecipeIng = document.createElement("p");
   cardRecipeIng.classList.add("card-ing");
   cardTitleLink.appendChild(cardRecipeIng);
-  recipeCard.appendChild(cardTitleLink);
+  ingCountainer.appendChild(cardRecipeIng);
+  recipeMoreInfo.appendChild(ingCountainer);
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
 }
 
-//**************** Form visible  *****************/
+//************************ Form visible *************************/
 
 function addRecipeClick() {
   const formShow = document.getElementById("formItemsContainer");
@@ -81,7 +110,7 @@ function cancelBtnClicked() {
   formShow.style.display = "none";
 }
 
-//**************** Add new recipe  *****************/
+//************************ Add new recipe **************************/
 
 function saveBtnClicked() {
   recipeCounter = recipeCounter + 1;
@@ -112,7 +141,7 @@ function saveBtnClicked() {
   cancelBtnClicked();
 }
 
-//**************** Add new ingredient Button *****************/
+//*************************** Add new ingredient **************************/
 
 function addIngredient() {
   ingredientNumber = ingredientNumber + 1;
@@ -148,7 +177,7 @@ function addIngredient() {
   ingredientsContainer.appendChild(newDiv);
 }
 
-// //**************** Search betwween recipes *****************/
+// //************************ Search between recipes ************************/
 function searchRecipe() {
   const searchTextBox = document.getElementById("search");
   const searchTextBoxValue = searchTextBox.value.toLowerCase();
@@ -162,7 +191,7 @@ function searchRecipe() {
     addRecipeToGrid(item);
   });
 }
-//**************** Sort Ingredients *****************/
+//**************** Sort amount of ngredients *****************/
 
 function sortAsc() {
   recipes.sort(function (recipeA, recipeB) {
@@ -189,3 +218,115 @@ function sortDes() {
   });
   showRecipesInGrid();
 }
+
+//*************************** Set cooking timer ******************************/
+
+let startTime = 0;
+let timerId;
+
+const startBtn = document.getElementById("startBtn");
+startBtn.addEventListener("click", startBtnClicked);
+const pauseBtn = document.getElementById("pauseBtn");
+pauseBtn.addEventListener("click", pauseBtnClicked);
+
+function recipeCookingTimeClicked(cookingTime) {
+  stopTimer();
+  const timerShow = document.getElementById("timeContainer");
+  timerShow.style.display = "flex";
+
+  document.getElementById("timeInput").value = cookingTime;
+  const displayTime = document.getElementById("timeDisplay");
+  let hrs = 0;
+  let mins = 0;
+  hrs = Math.floor(cookingTime / 60);
+
+  let formatedHours = hrs.toLocaleString("en", { minimumIntegerDigits: 2 });
+
+  mins = cookingTime % 60;
+
+  let formatedMinutes = mins.toLocaleString("en", { minimumIntegerDigits: 2 });
+
+  displayTime.innerText = formatedHours + ":" + formatedMinutes + ":00";
+}
+
+function startBtnClicked() {
+  startTime = document.getElementById("timeInput").value * 60;
+  document.getElementById("pauseBtn").innerHTML = "Pause";
+
+  startTimer();
+}
+
+function startTimer() {
+  isTimerRunning = true;
+  timerId = setInterval(timerHandler, 1000);
+  startBtn.setAttribute("disabled", true);
+  pauseBtn.removeAttribute("disabled");
+  document.getElementById("timeInput").setAttribute("disabled", true);
+}
+
+function timerHandler() {
+  startTime--;
+
+  let hrs = Math.floor(startTime / 3600);
+
+  let formatedHours = hrs.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
+
+  let mins = Math.floor((startTime % 3600) / 60);
+
+  let formatedMinutes = mins.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
+
+  let secs = Math.floor((startTime % 3600) % 60);
+
+  let formatedSeconds = secs.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
+
+  const displayTime = document.getElementById("timeDisplay");
+  displayTime.innerText =
+    formatedHours + ":" + formatedMinutes + ":" + formatedSeconds;
+  if (startTime === 0) {
+    stopTimer();
+    playAlarm();
+  }
+}
+
+function pauseBtnClicked() {
+  if (isTimerRunning) {
+    document.getElementById("pauseBtn").innerHTML = "Resume";
+    document.getElementById("timeInput").removeAttribute("disabled");
+
+    stopTimer();
+  } else {
+    document.getElementById("pauseBtn").innerHTML = "Pause";
+    document.getElementById("timeInput").setAttribute("disabled", true);
+    startTimer();
+  }
+}
+
+function stopTimer() {
+  isTimerRunning =false;
+  clearInterval(timerId);
+  startBtn.removeAttribute("disabled");
+}
+
+function playAlarm() {
+  const audio = document.createElement("audio");
+  audio.setAttribute("src", "./timer-alarm.mp3");
+  audio.play();
+}
+
+//*************************** Calculate user's spent time  ******************************/
+let second = 0;
+let userTimer = document.getElementById("spentTime");
+
+function userTime() {
+  second++;
+  userTimer.innerHTML = "  " + second + " seconds";
+}
+let spentTime = setInterval(userTime, 1000);
+
+window.addEventListener("beforeunload", () => clearInterval(spentTime));

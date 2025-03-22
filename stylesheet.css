@@ -33,20 +33,21 @@ p {
 }
 
 a:link {
-  color: white;
+  color: black;
   background-color: transparent;
   text-decoration: none;
 }
 a:visited {
-  color: white;
+  color: black;
   background-color: transparent;
   text-decoration: none;
 }
 a:hover {
+  color: #e92d28;
   cursor: pointer;
 }
 a:active {
-  color: white;
+  color: black;
   background-color: transparent;
   text-decoration: none;
 }
@@ -88,13 +89,60 @@ nav {
   font-size: 1.06rem;
 }
 
-.menuItem {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
 #logo {
   font-weight: bold;
   color: #e92d28;
+}
+/* /********************* dropdown classes**************** */
+.menuContainer {
+  list-style: none;
+  background-color: white;
+}
+.menuContainer li {
+  display: inline-block;
+  position: relative;
+}
+.menuContainer li a {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  font-size: large;
+}
+.menuContainer li a:hover {
+  background: #f9eceb;
+  color: #e92d28;
+}
+ul.dropdown {
+  border-radius: 1rem;
+  width: 100%;
+}
+ul li ul.dropdown li {
+  display: block;
+  padding: 1rem;
+}
+ul.dropdown li:hover {
+  cursor: pointer;
+  color: #e92d28;
+  background: #f9eceb;
+  border-radius: 1rem;
+}
+.menuContainer li a:hover {
+  background: #f9eceb;
+  color: #e92d28;
+}
+li ul.dropdown {
+  width: 100%;
+  background: white;
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+
+.menuContainer li:hover ul.dropdown {
+  display: block;
 }
 
 /***********************************************
@@ -203,6 +251,37 @@ nav {
   background-color: lightgray;
   color: black;
 }
+
+/***********************************************
+  Footer stylesheet
+ ***********************************************/
+.footerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 1rem;
+  font-size: large;
+  font-weight: 500;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid lightgray;
+}
+.footerList {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.socialMediaContainer {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  gap: 1rem;
+  font-size: larg;
+}
+
 /* *****************recipes page - grid ***************** */
 /* **************************************************** */
 
@@ -212,6 +291,9 @@ nav {
   color: black;
   text-align: center;
   padding-top: 5rem;
+  background-image: url("./images/recipe-bg.svg");
+  background-position: bottom;
+  background-repeat: repeat-x;
 }
 .heroMessage {
   color: rgb(36, 36, 36);
@@ -261,7 +343,6 @@ nav {
   font-size: larger;
   font-weight: 700;
   color: black;
-  /* margin-top: 23px; */
 }
 .card-title:hover {
   color: #e92d28;
@@ -280,16 +361,14 @@ nav {
   color: #e92d28;
   font-size: small;
   font-weight: 400;
-  /* margin-top: 1rem; */
-  /* margin-left: 1 rem; */
 }
 
 .cardCookTime {
   color: #e92d28;
   font-size: small;
   font-weight: 400;
-  /* margin-top: 1rem; */
 }
+
 .inputStyle {
   border: #f4f4f5;
   border-radius: 2rem;
@@ -306,4 +385,66 @@ nav {
   gap: 1rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+/* ***************** Timer Box styles ***************** */
+/* **************************************************** */
+
+.timeContainer {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+.timeInput {
+  font-size: 1.5rem;
+  border-radius: 1rem;
+  height: 2rem;
+  width: 5rem;
+  text-align: center;
+}
+.timeLable {
+  font-size: 1.5rem;
+}
+.timeDisplay {
+  font-size: 2rem;
+  color: #e92d28;
+}
+
+.closeBtn {
+  height: 1.5rem;
+  width: 1.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: #e92d28;
+  color: white;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  align-self: flex-end;
+}
+/* ***************** User spent time on page  ***************** */
+/* **************************************************** */
+
+.userSpendTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #eb716d;
+  color: white;
+  font-size: small;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-radius: 0.5rem;
+}
+.userSpendTime p {
+  padding: 0.5rem;
+  margin-bottom: 0;
 }
