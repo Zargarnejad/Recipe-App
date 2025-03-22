@@ -1,5 +1,6 @@
 let recipeCounter = 1;
 let ingredientNumber = 4;
+let isTimerRunning = false;
 
 document
   .getElementById("addRecipeBtn")
@@ -238,15 +239,14 @@ function recipeCookingTimeClicked(cookingTime) {
   let hrs = 0;
   let mins = 0;
   hrs = Math.floor(cookingTime / 60);
-  if (hrs < 10) {
-    hrs = "0" + hrs;
-  }
-  mins = cookingTime % 60;
-  if (mins < 10) {
-    mins = "0" + mins;
-  }
 
-  displayTime.innerText = hrs + ":" + mins + ":00";
+  let formatedHours = hrs.toLocaleString("en", { minimumIntegerDigits: 2 });
+
+  mins = cookingTime % 60;
+
+  let formatedMinutes = mins.toLocaleString("en", { minimumIntegerDigits: 2 });
+
+  displayTime.innerText = formatedHours + ":" + formatedMinutes + ":00";
 }
 
 function startBtnClicked() {
@@ -257,6 +257,7 @@ function startBtnClicked() {
 }
 
 function startTimer() {
+  isTimerRunning = true;
   timerId = setInterval(timerHandler, 1000);
   startBtn.setAttribute("disabled", true);
   pauseBtn.removeAttribute("disabled");
@@ -264,36 +265,38 @@ function startTimer() {
 }
 
 function timerHandler() {
-  {
-    startTime--;
+  startTime--;
 
-    let hrs = Math.floor(startTime / 3600);
+  let hrs = Math.floor(startTime / 3600);
 
-    if (hrs < 10) {
-      hrs = "0" + hrs;
-    }
-    let mins = Math.floor((startTime % 3600) / 60);
-    if (mins < 10) {
-      mins = "0" + mins;
-    }
-    let secs = Math.floor((startTime % 3600) % 60);
+  let formatedHours = hrs.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
 
-    if (secs < 10) {
-      secs = "0" + secs;
-    }
+  let mins = Math.floor((startTime % 3600) / 60);
 
-    const displayTime = document.getElementById("timeDisplay");
-    displayTime.innerText = hrs + ":" + mins + ":" + secs;
-    if (startTime === 0) {
-      stopTimer();
-      playAlarm();
-    }
+  let formatedMinutes = mins.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
+
+  let secs = Math.floor((startTime % 3600) % 60);
+
+  let formatedSeconds = secs.toLocaleString("en", {
+    minimumIntegerDigits: 2,
+  });
+
+  const displayTime = document.getElementById("timeDisplay");
+  displayTime.innerText =
+    formatedHours + ":" + formatedMinutes + ":" + formatedSeconds;
+  if (startTime === 0) {
+    stopTimer();
+    playAlarm();
   }
 }
 
 function pauseBtnClicked() {
-  if (document.getElementById("pauseBtn").innerHTML === "Pause") {
-    document.getElementById("pauseBtn").innerHTML = "resume";
+  if (isTimerRunning) {
+    document.getElementById("pauseBtn").innerHTML = "Resume";
     document.getElementById("timeInput").removeAttribute("disabled");
 
     stopTimer();
@@ -305,6 +308,7 @@ function pauseBtnClicked() {
 }
 
 function stopTimer() {
+  isTimerRunning =false;
   clearInterval(timerId);
   startBtn.removeAttribute("disabled");
 }
