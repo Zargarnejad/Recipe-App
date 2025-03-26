@@ -1,3 +1,23 @@
+let recipes;
+let recipePrice;
+
+fetch(
+  "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
+)
+  .then((response) => response.text())
+  .then((data) => {
+    recipes = JSON.parse(data);
+    showRecipesInGrid();
+  });
+
+fetch(
+  "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/ingredient-price.json"
+)
+  .then((response) => response.text())
+  .then((data) => {
+    recipePrice = JSON.parse(data);
+  });
+
 let recipeCounter = 1;
 let ingredientNumber = 4;
 let isTimerRunning = false;
@@ -12,6 +32,10 @@ document.getElementById("search").addEventListener("keyup", (e) => {
     searchRecipe();
   }
 });
+
+document
+  .getElementById("searchIngredientBtn")
+  .addEventListener("click", searchIngredients);
 
 document.getElementById("sortAscBtn").addEventListener("click", sortAsc);
 
@@ -30,8 +54,6 @@ function showRecipesInGrid() {
     addRecipeToGrid(recipe);
   });
 }
-
-showRecipesInGrid();
 
 //********************* Add a new recipe in grid **********************/
 
@@ -86,7 +108,7 @@ function addRecipeToGrid(recipeObject) {
 
   /* add amount of ingrediant */
   const ingCountainer = document.createElement("div");
-  ingCountainer.classList.add("cardCookTme");
+  ingCountainer.classList.add("cardCookTime");
 
   /* add amount of ingrediant */
   const cardRecipeIng = document.createElement("p");
@@ -95,6 +117,78 @@ function addRecipeToGrid(recipeObject) {
   ingCountainer.appendChild(cardRecipeIng);
   recipeMoreInfo.appendChild(ingCountainer);
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
+
+  /* add recipe price */
+  //   const recipePriceContainer = document.createElement("div");
+  //   recipePriceContainer.classList.add("cardCookTime");
+  //   const recipePriceTitle = document.createElement("a");
+  //   recipePriceTitle.classList.add("card-ing");
+  //   recipePriceContainer.appendChild(recipePriceTitle);
+  //   recipePriceTitle.innerText = "Price";
+  //   recipeMoreInfo.appendChild(recipePriceContainer);
+  // }
+  const recipePriceContainer = document.createElement("div");
+  recipePriceContainer.classList.add("cardCookTime");
+  const recipePriceTitle = document.createElement("a");
+  recipePriceTitle.classList.add("card-ing");
+  recipePriceContainer.appendChild(recipePriceTitle);
+  recipePriceTitle.innerText = "Price";
+  recipeMoreInfo.appendChild(recipePriceContainer);
+  recipePriceTitle.addEventListener("click", () => {
+    priceClick(recipeObject);
+  });
+}
+
+function priceClick(recipe) {
+  const recipePriceContainerShow = document.getElementById(
+    "recipePriceContainer"
+  );
+
+  const recipeIngList = document.getElementById("ingredientsList");
+  recipeIngList.innerHTML = "";
+
+  const recipetitle = document.getElementById("foodName");
+  recipetitle.innerHTML = recipe.title;
+  recipe.ingredients.forEach((ing) => {
+    const recipeIngItems = document.createElement("li");
+    recipeIngList.appendChild(recipeIngItems);
+    const recipeIngItemName = document.createElement("p");
+    recipeIngItemName.innerHTML = ing.NAME;
+    const recipeIngItemPrice = document.createElement("p");
+    recipeIngItemPrice.innerHTML = getIngredientPrice(ing.NAME);
+    recipeIngItems.appendChild(recipeIngItemName);
+    recipeIngItems.appendChild(recipeIngItemPrice);
+    recipeIngList.appendChild(recipeIngItems);
+  });
+
+  document.getElementById("totalPrice").innerHTML =
+    getTotalPrice(recipe) + " kr.";
+  recipePriceContainerShow.style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+
+  document.getElementById("closeContainer").addEventListener("click", () => {
+    recipePriceContainerShow.style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  });
+
+  // recipePriceContainerShow.scrollIntoView();
+}
+
+function getIngredientPrice(ingName) {
+  for (let i = 0; i < recipePrice.length; i++) {
+    if (recipePrice[i].NAME === ingName) {
+      return recipePrice[i].Price;
+    }
+  }
+}
+
+function getTotalPrice(recipe) {
+  let sum = 0;
+  recipe.ingredients.forEach((ingredient) => {
+    let price = getIngredientPrice(ingredient.NAME);
+    sum = sum + price;
+  });
+  return sum;
 }
 
 //************************ Form visible *************************/
@@ -187,6 +281,24 @@ function searchRecipe() {
   const searchResult = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(searchTextBoxValue)
   );
+  searchResult.forEach((item) => {
+    addRecipeToGrid(item);
+  });
+}
+
+// //************************ Search between ingredients ************************/
+function searchIngredients() {
+  const searchTextBox = document.getElementById("search");
+  const searchTextBoxValue = searchTextBox.value.toLowerCase();
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.innerHTML = "";
+  const searchResult = recipes.filter((recipe) => {
+    let matchedIngredients = recipe.ingredients.filter((ing) => {
+      return ing.NAME.toLowerCase().includes(searchTextBoxValue);
+    });
+    return matchedIngredients.length > 0;
+  });
+
   searchResult.forEach((item) => {
     addRecipeToGrid(item);
   });
@@ -308,7 +420,7 @@ function pauseBtnClicked() {
 }
 
 function stopTimer() {
-  isTimerRunning =false;
+  isTimerRunning = false;
   clearInterval(timerId);
   startBtn.removeAttribute("disabled");
 }
@@ -330,3 +442,5 @@ function userTime() {
 let spentTime = setInterval(userTime, 1000);
 
 window.addEventListener("beforeunload", () => clearInterval(spentTime));
+
+//*************************** Add recipe's price**************************/
