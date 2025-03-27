@@ -55,13 +55,28 @@
           type="text"
           placeholder=" Type here to search... "
         />
-        <button id="searchBtn" class="button-primary">Search</button>
+        <button id="searchBtn" class="button-primary">Search in recipes</button>
+        <button id="searchIngredientBtn" class="button-primary">
+          Search in ingredients
+        </button>
       </div>
     </div>
     <div class="sortContainer">
       <button id="sortAscBtn" class="button-primary">Least Ingredient</button>
       <button id="sortDesBtn" class="button-primary">Most Ingredient</button>
     </div>
+    <div id="overlay" class="overlay"></div>
+    <div id="recipePriceContainer" class="showIngredientsPriceContainer">
+      <button id="closeContainer" class="popUpClosebtn">✖</button>
+
+      <h2 id="foodName" class="mainTitles"></h2>
+      <ul id="ingredientsList" class="ingredientsList"></ul>
+      <div class="priceStyle">
+        <p>This recipe's price is :</p>
+        <p id="totalPrice"></p>
+      </div>
+    </div>
+
     <div id="cards-container"></div>
 
     <div id="formItemsContainer" class="formItemsContainer">
@@ -207,7 +222,6 @@
       <p id="spentTime">0 second</p>
     </div>
 
-    <script src="./data.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
