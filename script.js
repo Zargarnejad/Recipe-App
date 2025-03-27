@@ -3,20 +3,15 @@ let recipePrice;
 
 fetch(
   "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
-)
-  .then((response) => response.text())
-  .then((data) => {
-    recipes = JSON.parse(data);
-    showRecipesInGrid();
-  });
-
+).then((response) => {
+  recipes = response.json();
+  showRecipesInGrid();
+});
 fetch(
   "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/ingredient-price.json"
-)
-  .then((response) => response.text())
-  .then((data) => {
-    recipePrice = JSON.parse(data);
-  });
+).then((response) => {
+  recipePrice = response.json();
+});
 
 let recipeCounter = 1;
 let ingredientNumber = 4;
@@ -117,16 +112,7 @@ function addRecipeToGrid(recipeObject) {
   ingCountainer.appendChild(cardRecipeIng);
   recipeMoreInfo.appendChild(ingCountainer);
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
-
-  /* add recipe price */
-  //   const recipePriceContainer = document.createElement("div");
-  //   recipePriceContainer.classList.add("cardCookTime");
-  //   const recipePriceTitle = document.createElement("a");
-  //   recipePriceTitle.classList.add("card-ing");
-  //   recipePriceContainer.appendChild(recipePriceTitle);
-  //   recipePriceTitle.innerText = "Price";
-  //   recipeMoreInfo.appendChild(recipePriceContainer);
-  // }
+  
   const recipePriceContainer = document.createElement("div");
   recipePriceContainer.classList.add("cardCookTime");
   const recipePriceTitle = document.createElement("a");
