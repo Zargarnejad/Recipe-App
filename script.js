@@ -3,15 +3,20 @@ let recipePrice;
 
 fetch(
   "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
-).then((response) => {
-  recipes = response.json();
-  showRecipesInGrid();
-});
+)
+  .then((response) => response.json())
+  .then((data) => {
+    recipes = data;
+    showRecipesInGrid();
+  });
+
 fetch(
   "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/ingredient-price.json"
-).then((response) => {
-  recipePrice = response.json();
-});
+)
+  .then((response) => response.json())
+  .then((data) => {
+    recipePrice = data;
+  });
 
 let recipeCounter = 1;
 let ingredientNumber = 4;
@@ -112,7 +117,7 @@ function addRecipeToGrid(recipeObject) {
   ingCountainer.appendChild(cardRecipeIng);
   recipeMoreInfo.appendChild(ingCountainer);
   cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
-  
+
   const recipePriceContainer = document.createElement("div");
   recipePriceContainer.classList.add("cardCookTime");
   const recipePriceTitle = document.createElement("a");
