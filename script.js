@@ -5,13 +5,23 @@ let recipeCounter = 1;
 let ingredientNumber = 4;
 let isTimerRunning = false;
 
+let categories = [
+  { id: 1, name: "Appetizers" },
+  { id: 2, name: "Pasta" },
+  { id: 3, name: "Cake" },
+  { id: 4, name: "Salad" },
+  { id: 5, name: "Drink" },
+  { id: 6, name: "Soup" },
+  { id: 7, name: "Dessert" },
+];
+
 async function fetchRecipes() {
   try {
     const response = await fetch(
       "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
     );
     recipes = await response.json();
-    showRecipesInGrid();
+    renderRecipesInGrid(recipes);
   } catch (error) {
     console.error("Some errors happened:", error);
   }
@@ -277,16 +287,12 @@ async function searchRecipe() {
   try {
     const searchTextBox = document.getElementById("search");
     const searchTextBoxValue = searchTextBox.value.toLowerCase();
-    const recipesContainer = document.getElementById("cards-container");
-    recipesContainer.innerHTML = "";
 
     const searchResult = recipes.filter((recipe) =>
       recipe.title.toLowerCase().includes(searchTextBoxValue)
     );
 
-    searchResult.forEach((item) => {
-      addRecipeToGrid(item);
-    });
+    renderRecipesInGrid(searchResult);
   } catch (error) {
     console.error("Some errors happened:", error);
   }
@@ -297,8 +303,6 @@ async function searchIngredients() {
   try {
     const searchTextBox = document.getElementById("search");
     const searchTextBoxValue = searchTextBox.value.toLowerCase();
-    const recipesContainer = document.getElementById("cards-container");
-    recipesContainer.innerHTML = "";
 
     if (!recipes || recipes.length === 0) {
       await fetchRecipes();
@@ -311,9 +315,7 @@ async function searchIngredients() {
       return matchedIngredients.length > 0;
     });
 
-    searchResult.forEach((item) => {
-      addRecipeToGrid(item);
-    });
+    renderRecipesInGrid(searchResult);
   } catch (error) {
     console.error("Some errors happened:", error);
   }
@@ -327,7 +329,8 @@ async function sortAsc() {
       (recipeA, recipeB) =>
         recipeA.ingredients.length - recipeB.ingredients.length
     );
-    showRecipesInGrid();
+
+    renderRecipesInGrid(recipes);
   } catch (error) {
     console.error("Some errors happened for sorting:", error);
   }
@@ -339,7 +342,8 @@ async function sortDes() {
       (recipeA, recipeB) =>
         recipeB.ingredients.length - recipeA.ingredients.length
     );
-    showRecipesInGrid();
+
+    renderRecipesInGrid(recipes);
   } catch (error) {
     console.error("Some errors happened for sorting:", error);
   }
@@ -457,4 +461,33 @@ let spentTime = setInterval(userTime, 1000);
 
 window.addEventListener("beforeunload", () => clearInterval(spentTime));
 
-//*************************** Add recipe's price**************************/
+//*************************** Categories dropBox  ******************************/
+
+const categoriesList = document.getElementById("categoryList");
+for (let i = 0; i < categories.length; i++) {
+  const categoriesItem = document.createElement("li");
+  categoriesItem.innerHTML = categories[i].name;
+  categoriesList.appendChild(categoriesItem);
+  categoriesItem.addEventListener("click", () => {
+    categoryItemClick(categories[i].name);
+  });
+}
+
+ //************************ list of category ************************/
+function categoryItemClick(categoryName) {
+  const categoriesRecipe = recipes.filter((recipe) => {
+    const result = recipe.category === categoryName;
+    return result;
+  });
+  renderRecipesInGrid(categoriesRecipe);
+}
+
+// //************************ render function  ************************/
+
+function renderRecipesInGrid(recipeList) {
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.innerHTML = "";
+  recipeList.forEach((item) => {
+    addRecipeToGrid(item);
+  });
+}

@@ -25,15 +25,7 @@
         <li><a href="">Cuisines</a></li>
         <li>
           <a href="">Categories</a>
-          <ul class="dropdown">
-            <li>Appetizers</li>
-            <li>Pasta</li>
-            <li>Cake</li>
-            <li>Salad</li>
-            <li>Drink</li>
-            <li>Soup</li>
-            <li>Dessert</li>
-          </ul>
+          <ul id="categoryList" class="dropdown"></ul>
         </li>
         <li><a href="">Blog</a></li>
       </ul>
@@ -96,7 +88,12 @@
         </div>
         <div class="formRow">
           <label for="category">Cooking time</label>
-          <input name="category" id="cookingTime" type="text" class="formInput" />
+          <input
+            name="category"
+            id="cookingTime"
+            type="text"
+            class="formInput"
+          />
         </div>
         <div class="formRow">
           <label for="description"> Description</label>
@@ -106,7 +103,7 @@
             id="descriptionArea"
           ></textarea>
         </div>
-        
+
         <p>Ingredients</p>
 
         <div id="ingredientsContainer">
