@@ -1,26 +1,44 @@
 let recipes;
 let recipePrice;
 
-fetch(
-  "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
-)
-  .then((response) => response.json())
-  .then((data) => {
-    recipes = data;
-    showRecipesInGrid();
-  });
-
-fetch(
-  "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/ingredient-price.json"
-)
-  .then((response) => response.json())
-  .then((data) => {
-    recipePrice = data;
-  });
-
 let recipeCounter = 1;
 let ingredientNumber = 4;
 let isTimerRunning = false;
+
+let categories = [
+  { id: 1, name: "Appetizers" },
+  { id: 2, name: "Pasta" },
+  { id: 3, name: "Cake" },
+  { id: 4, name: "Salad" },
+  { id: 5, name: "Drink" },
+  { id: 6, name: "Soup" },
+  { id: 7, name: "Dessert" },
+];
+
+async function fetchRecipes() {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/data.json"
+    );
+    recipes = await response.json();
+    renderRecipesInGrid(recipes);
+  } catch (error) {
+    console.error("Some errors happened:", error);
+  }
+}
+
+async function fetchRecipePrices() {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Zargarnejad/zargarnejad.github.io/refs/heads/main/ingredient-price.json"
+    );
+    recipePrice = await response.json();
+  } catch (error) {
+    console.error("Some errors happened:", error);
+  }
+}
+fetchRecipes();
+fetchRecipePrices();
 
 document
   .getElementById("addRecipeBtn")
@@ -87,14 +105,13 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
 
-  /* creat a section for showing some info about food */
-  // ***************************************************/
+  /* create a section for showing some info about recipes */
 
   const recipeMoreInfo = document.createElement("div");
   recipeMoreInfo.classList.add("moreInfo");
   recipeCard.appendChild(recipeMoreInfo);
 
-  // add cooking time
+  /* add cooking time */
   const recipeCookingTime = document.createElement("div");
   recipeCookingTime.classList.add("cardCookTime");
   const cooktime = document.createElement("a");
@@ -116,7 +133,8 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardRecipeIng);
   ingCountainer.appendChild(cardRecipeIng);
   recipeMoreInfo.appendChild(ingCountainer);
-  cardRecipeIng.innerText = "ingredients: " + recipeObject.ingredients.length;
+  cardRecipeIng.innerText =
+    "ingredient count: " + recipeObject.ingredients.length;
 
   const recipePriceContainer = document.createElement("div");
   recipePriceContainer.classList.add("cardCookTime");
@@ -161,8 +179,6 @@ function priceClick(recipe) {
     recipePriceContainerShow.style.display = "none";
     document.getElementById("overlay").style.display = "none";
   });
-
-  // recipePriceContainerShow.scrollIntoView();
 }
 
 function getIngredientPrice(ingName) {
@@ -204,6 +220,8 @@ function saveBtnClicked() {
   const picture_url = document.getElementById("picture").value;
   const description = document.getElementById("descriptionArea").value;
   const category = document.getElementById("category").value;
+  const cooking_time = document.getElementById("cookingTime").value;
+
   const ingredientsList = [];
   for (let i = 0; i <= ingredientNumber; i++) {
     const nameValue = document.getElementById("ingName" + i).value;
@@ -219,6 +237,7 @@ function saveBtnClicked() {
     ingredients: ingredientsList,
     description,
     category,
+    cooking_time,
   };
   recipes.push(newRecipe);
 
@@ -226,7 +245,7 @@ function saveBtnClicked() {
   cancelBtnClicked();
 }
 
-//*************************** Add new ingredient **************************/
+//*************************** Add new ingredient  **************************/
 
 function addIngredient() {
   ingredientNumber = ingredientNumber + 1;
@@ -263,63 +282,71 @@ function addIngredient() {
 }
 
 // //************************ Search between recipes ************************/
+
 function searchRecipe() {
-  const searchTextBox = document.getElementById("search");
-  const searchTextBoxValue = searchTextBox.value.toLowerCase();
-  const recipesContainer = document.getElementById("cards-container");
-  recipesContainer.innerHTML = "";
+  try {
+    const searchTextBox = document.getElementById("search");
+    const searchTextBoxValue = searchTextBox.value.toLowerCase();
 
-  const searchResult = recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(searchTextBoxValue)
-  );
-  searchResult.forEach((item) => {
-    addRecipeToGrid(item);
-  });
+    const searchResult = recipes.filter((recipe) =>
+      recipe.title.toLowerCase().includes(searchTextBoxValue)
+    );
+
+    renderRecipesInGrid(searchResult);
+  } catch (error) {
+    console.error("Some errors happened:", error);
+  }
 }
-
 // //************************ Search between ingredients ************************/
-function searchIngredients() {
-  const searchTextBox = document.getElementById("search");
-  const searchTextBoxValue = searchTextBox.value.toLowerCase();
-  const recipesContainer = document.getElementById("cards-container");
-  recipesContainer.innerHTML = "";
-  const searchResult = recipes.filter((recipe) => {
-    let matchedIngredients = recipe.ingredients.filter((ing) => {
-      return ing.NAME.toLowerCase().includes(searchTextBoxValue);
-    });
-    return matchedIngredients.length > 0;
-  });
 
-  searchResult.forEach((item) => {
-    addRecipeToGrid(item);
-  });
+async function searchIngredients() {
+  try {
+    const searchTextBox = document.getElementById("search");
+    const searchTextBoxValue = searchTextBox.value.toLowerCase();
+
+    if (!recipes || recipes.length === 0) {
+      await fetchRecipes();
+    }
+
+    const searchResult = recipes.filter((recipe) => {
+      let matchedIngredients = recipe.ingredients.filter((ing) =>
+        ing.NAME.toLowerCase().includes(searchTextBoxValue)
+      );
+      return matchedIngredients.length > 0;
+    });
+
+    renderRecipesInGrid(searchResult);
+  } catch (error) {
+    console.error("Some errors happened:", error);
+  }
 }
-//**************** Sort amount of ngredients *****************/
+
+//**************** Sort amount of ingredients *****************/
 
 function sortAsc() {
-  recipes.sort(function (recipeA, recipeB) {
-    if (recipeA.ingredients.length > recipeB.ingredients.length) {
-      return 1;
-    }
-    if (recipeA.ingredients.length < recipeB.ingredients.length) {
-      return -1;
-    }
-    return 0;
-  });
-  showRecipesInGrid();
+  try {
+    recipes.sort(
+      (recipeA, recipeB) =>
+        recipeA.ingredients.length - recipeB.ingredients.length
+    );
+
+    renderRecipesInGrid(recipes);
+  } catch (error) {
+    console.error("Some errors happened for sorting:", error);
+  }
 }
 
 function sortDes() {
-  recipes.sort(function (recipeA, recipeB) {
-    if (recipeA.ingredients.length < recipeB.ingredients.length) {
-      return 1;
-    }
-    if (recipeA.ingredients.length > recipeB.ingredients.length) {
-      return -1;
-    }
-    return 0;
-  });
-  showRecipesInGrid();
+  try {
+    recipes.sort(
+      (recipeA, recipeB) =>
+        recipeB.ingredients.length - recipeA.ingredients.length
+    );
+
+    renderRecipesInGrid(recipes);
+  } catch (error) {
+    console.error("Some errors happened for sorting:", error);
+  }
 }
 
 //*************************** Set cooking timer ******************************/
@@ -434,4 +461,33 @@ let spentTime = setInterval(userTime, 1000);
 
 window.addEventListener("beforeunload", () => clearInterval(spentTime));
 
-//*************************** Add recipe's price**************************/
+//*************************** Categories dropBox  ******************************/
+
+const categoriesList = document.getElementById("categoryList");
+for (let i = 0; i < categories.length; i++) {
+  const categoriesItem = document.createElement("li");
+  categoriesItem.innerHTML = categories[i].name;
+  categoriesList.appendChild(categoriesItem);
+  categoriesItem.addEventListener("click", () => {
+    categoryItemClick(categories[i].name);
+  });
+}
+
+//************************ list of category ************************/
+function categoryItemClick(categoryName) {
+  const categoriesRecipe = recipes.filter((recipe) => {
+    const result = recipe.category === categoryName;
+    return result;
+  });
+  renderRecipesInGrid(categoriesRecipe);
+}
+
+// //************************ render function  ************************/
+
+function renderRecipesInGrid(recipeList) {
+  const recipesContainer = document.getElementById("cards-container");
+  recipesContainer.innerHTML = "";
+  recipeList.forEach((item) => {
+    addRecipeToGrid(item);
+  });
+}
