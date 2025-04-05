@@ -105,7 +105,7 @@ function addRecipeToGrid(recipeObject) {
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
 
-  /* creat a section for showing some info about recipes */
+  /* create a section for showing some info about recipes */
 
   const recipeMoreInfo = document.createElement("div");
   recipeMoreInfo.classList.add("moreInfo");
@@ -283,7 +283,7 @@ function addIngredient() {
 
 // //************************ Search between recipes ************************/
 
-async function searchRecipe() {
+function searchRecipe() {
   try {
     const searchTextBox = document.getElementById("search");
     const searchTextBoxValue = searchTextBox.value.toLowerCase();
@@ -323,7 +323,7 @@ async function searchIngredients() {
 
 //**************** Sort amount of ingredients *****************/
 
-async function sortAsc() {
+function sortAsc() {
   try {
     recipes.sort(
       (recipeA, recipeB) =>
@@ -336,7 +336,7 @@ async function sortAsc() {
   }
 }
 
-async function sortDes() {
+function sortDes() {
   try {
     recipes.sort(
       (recipeA, recipeB) =>
@@ -473,7 +473,7 @@ for (let i = 0; i < categories.length; i++) {
   });
 }
 
- //************************ list of category ************************/
+//************************ list of category ************************/
 function categoryItemClick(categoryName) {
   const categoriesRecipe = recipes.filter((recipe) => {
     const result = recipe.category === categoryName;
