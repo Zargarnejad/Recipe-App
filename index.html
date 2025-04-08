@@ -18,7 +18,9 @@
   </head>
   <body>
     <nav id="navBar">
-      <div><a id="logo">YummyDish</a></div>
+      <div>
+        <a id="logo"><i class="fa-solid fa-plate-wheat"></i> YummyDish </a>
+      </div>
       <ul class="menuContainer">
         <li><a href="">Home</a></li>
         <li><a href="">Recipes</a></li>
@@ -34,42 +36,80 @@
         <button id="addRecipeBtn" class="button-primary">Add recipe</button>
       </div>
     </nav>
-    <div class="titleBox">
-      <h1>Recipes</h1>
-      <p class="heroMessage">
-        " Don’t be afraid to experiment — some of the best recipes are happy
-        accidents! "
-      </p>
-      <div class="searchContainer">
-        <input
-          id="search"
-          class="inputStyle"
-          type="text"
-          placeholder=" Type here to search... "
-        />
-        <button id="searchBtn" class="button-primary">Search in recipes</button>
-        <button id="searchIngredientBtn" class="button-primary">
-          Search in ingredients
-        </button>
-      </div>
-    </div>
-    <div class="sortContainer">
-      <button id="sortAscBtn" class="button-primary">Least Ingredient</button>
-      <button id="sortDesBtn" class="button-primary">Most Ingredient</button>
-    </div>
-    <div id="overlay" class="overlay"></div>
-    <div id="recipePriceContainer" class="showIngredientsPriceContainer">
-      <button id="closeContainer" class="popUpClosebtn">✖</button>
 
-      <h2 id="foodName" class="mainTitles"></h2>
-      <ul id="ingredientsList" class="ingredientsList"></ul>
-      <div class="priceStyle">
-        <p>This recipe's price is :</p>
-        <p id="totalPrice"></p>
+    <div id="mainContainer">
+      <div class="titleBox">
+        <h1>Recipes</h1>
+        <p class="heroMessage">
+          " Don’t be afraid to experiment — some of the best recipes are happy
+          accidents! "
+        </p>
+        <div class="searchContainer">
+          <input
+            id="search"
+            class="inputStyle"
+            type="text"
+            placeholder=" Type here to search... "
+          />
+          <button id="searchBtn" class="button-primary">
+            Search in recipes
+          </button>
+          <button id="searchIngredientBtn" class="button-primary">
+            Search in ingredients
+          </button>
+        </div>
       </div>
+      <div class="sortContainer">
+        <button id="sortAscBtn" class="button-primary">Least Ingredient</button>
+        <button id="sortDesBtn" class="button-primary">Most Ingredient</button>
+      </div>
+
+      <div id="cards-container"></div>
     </div>
 
-    <div id="cards-container"></div>
+    <!-- display each recipe -->
+    <div id="recipeDetailContainer" class="hidden">
+      <div class="Container">
+        <button id="closeRecipieDetails" class="closeBtn">x</button>
+
+        <div class="foodImageDiv">
+          <img id="recipePageFoodImg" src="" alt="" />
+        </div>
+        <div class="recipeContent">
+          <div id="recipPageContent">
+            <div>
+              <p id="recipeCategoryTitle" class="card-category"></p>
+            </div>
+            <div>
+              <h1 id="recipeName"></h1>
+            </div>
+            <div class="recipeMoreInfoCantainer" id="recipeMoreInfoBox">
+              <div class="moreInfoDetails">
+                <div>
+                  <i class="fa-solid fa-clock"></i>
+                  <span id="recipeCookingTime"> 30 min</span>
+                </div>
+                <p>Cooking Time</p>
+              </div>
+            </div>
+            <br />
+            <div id="recipeIngList" class="recipeIngListContainer">
+              <h4>Ingredients</h4>
+              <ul
+                id="recipeIngredientList"
+                class="recipeDisplayIngredientsList"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="recipeDescription">
+        <h3>Description</h3>
+        <div>
+          <p id="recipeDescription"></p>
+        </div>
+      </div>
+    </div>
 
     <div id="formItemsContainer" class="formItemsContainer">
       <form action="" class="formStyle" id="addRecipeForm">
@@ -196,6 +236,16 @@
     <div id="userSpendTime" class="userSpendTime">
       <p>Thank you for being here for :</p>
       <p id="spentTime">0 second</p>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    <div id="recipePriceContainer" class="showIngredientsPriceContainer">
+      <button id="closeContainer" class="popUpClosebtn">✖</button>
+      <h2 id="foodName" class="mainTitles"></h2>
+      <ul id="ingredientsList" class="ingredientsList"></ul>
+      <div class="priceStyle">
+        <p>This recipe's price is :</p>
+        <p id="totalPrice"></p>
+      </div>
     </div>
 
     <footer class="footerContainer">

@@ -72,6 +72,13 @@ a:active {
   background-color: darkgray;
   color: #e92d28;
 }
+
+.hidden {
+  display: none;
+}
+.visible {
+  display: block;
+}
 /***********************************************
   NavBar stylesheet
  ***********************************************/
@@ -208,6 +215,7 @@ li ul.dropdown {
   max-width: 50%;
   border-radius: 1rem;
   flex-direction: column;
+  padding: 1rem;
 }
 .formRow {
   display: flex;
@@ -218,9 +226,13 @@ li ul.dropdown {
 .formInput {
   width: 50%;
   height: 2rem;
+  border-radius: 0.5rem;
+  border-color: #f4f4f5;
 }
 #descriptionArea {
-  height: 5rem;
+  height: 7rem;
+  border-radius: 0.5rem;
+  border-color: #f4f4f5;
 }
 .addIng {
   text-align: left;
@@ -514,4 +526,94 @@ li ul.dropdown {
   background-color: #e92d28;
   color: white;
   border-radius: 0.5rem;
+}
+
+/* ***************** Show each recipe   ***************** */
+/* **************************************************** */
+
+.foodImageDiv {
+  margin: 1rem;
+  width: 40%;
+  height: auto;
+}
+
+.foodImageDiv > img {
+  border-radius: 1.5rem;
+  display: block;
+}
+
+.recipeContent {
+  width: 60%;
+  line-height: 1.5rem;
+  font-size: large;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.recipeMoreInfoCantainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  gap: 3rem;
+}
+.moreInfoDetails {
+  display: flex;
+  flex-direction: column;
+}
+.moreInfoDetails p {
+  color: rgb(128, 127, 127);
+  font-size: small;
+}
+.moreInfoDetails a {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.moreInfoDetails > div > span {
+  cursor: pointer;
+}
+.recipeIngListContainer {
+  display: flex;
+  flex-direction: column;
+}
+.recipeIngListContainer h4 {
+  color: rgb(128, 127, 127);
+  font-size: larger;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+.recipeDisplayIngredientsList {
+  margin-top: 1rem;
+  width: 40%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  line-height: 2rem;
+}
+.recipeDisplayIngredientsList > li {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  font-weight: bold;
+  font-size: medium;
+  gap: 2rem;
+}
+.ingredientName {
+  font-weight: normal;
+}
+
+.recipeDescription {
+  padding: 1rem 2rem;
+  font-size: 16px;
+  line-height: 2rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.recipieDetailsHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipieDetailsHeader > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
 }

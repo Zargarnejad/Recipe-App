@@ -44,6 +44,9 @@ document
   .getElementById("addRecipeBtn")
   .addEventListener("click", addRecipeClick);
 
+document
+  .getElementById("closeRecipieDetails")
+  .addEventListener("click", hideRecipie);
 document.getElementById("searchBtn").addEventListener("click", searchRecipe);
 document.getElementById("search").addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
@@ -104,6 +107,9 @@ function addRecipeToGrid(recipeObject) {
   cardTitle.innerText = recipeObject.title;
   cardTitleLink.appendChild(cardTitle);
   recipeCard.appendChild(cardTitleLink);
+  cardTitle.addEventListener("click", () => {
+    showRecipe(recipeObject);
+  });
 
   /* create a section for showing some info about recipes */
 
@@ -114,14 +120,23 @@ function addRecipeToGrid(recipeObject) {
   /* add cooking time */
   const recipeCookingTime = document.createElement("div");
   recipeCookingTime.classList.add("cardCookTime");
-  const cooktime = document.createElement("a");
-  cooktime.classList.add("card-ing");
-  recipeCookingTime.appendChild(cooktime);
-  recipeMoreInfo.appendChild(recipeCookingTime);
-  cooktime.innerText = recipeObject.cooking_time + " min";
+
+  const timeIcon = document.createElement("i");
+  timeIcon.classList.add("fa-solid");
+  timeIcon.classList.add("fa-clock");
+
+  const cooktimeText = document.createElement("a");
+  cooktimeText.classList.add("card-ing");
+  cooktimeText.innerText = " " + recipeObject.cooking_time + " min";
+
+  recipeCookingTime.appendChild(timeIcon);
+  recipeCookingTime.appendChild(cooktimeText);
+
   recipeCookingTime.addEventListener("click", () => {
     recipeCookingTimeClicked(recipeObject.cooking_time);
   });
+
+  recipeMoreInfo.appendChild(recipeCookingTime);
 
   /* add amount of ingrediant */
   const ingCountainer = document.createElement("div");
@@ -148,6 +163,66 @@ function addRecipeToGrid(recipeObject) {
   });
 }
 
+/////************************************************* */
+/////************************************************* */
+
+function hideRecipie() {
+  const mainContainer = document.getElementById("mainContainer");
+  mainContainer.classList.remove("hidden");
+
+  const recipeDetailContainer = document.getElementById(
+    "recipeDetailContainer"
+  );
+  recipeDetailContainer.classList.add("hidden");
+
+}
+
+function showRecipe(recipe) {
+  const mainContainer = document.getElementById("mainContainer");
+  mainContainer.classList.add("hidden");
+
+  const recipeDetailContainer = document.getElementById(
+    "recipeDetailContainer"
+  );
+  recipeDetailContainer.classList.remove("hidden");
+
+  const recipePageFoodImg = document.getElementById("recipePageFoodImg");
+  recipePageFoodImg.src = recipe.picture_url;
+
+  const recipeCategoryTitle = document.getElementById("recipeCategoryTitle");
+  recipeCategoryTitle.innerHTML = recipe.category;
+
+  const recipeName = document.getElementById("recipeName");
+  recipeName.innerHTML = recipe.title;
+
+  const recipeCookingTime = document.getElementById("recipeCookingTime");
+  recipeCookingTime.innerHTML = recipe.cooking_time + " min";
+  recipeCookingTime.addEventListener("click", () => {
+    recipeCookingTimeClicked(recipe.cooking_time);
+  });
+
+  const recipeIngredientList = document.getElementById("recipeIngredientList");
+  recipe.ingredients.forEach((ing) => {
+    const ingLi = document.createElement("li");
+
+    const amountEl = document.createElement("p");
+    amountEl.innerHTML = ing.AMOUNT;
+
+    const ingNameEl = document.createElement("p");
+    ingNameEl.innerHTML = ing.NAME;
+    ingNameEl.classList.add("ingredientName");
+
+    ingLi.appendChild(amountEl);
+    ingLi.appendChild(ingNameEl);
+
+    recipeIngredientList.appendChild(ingLi);
+  });
+
+  const recipeDescription = document.getElementById("recipeDescription");
+  recipeDescription.innerHTML = recipe.description;
+}
+/////************************************************* */
+/////************************************************* */
 function priceClick(recipe) {
   const recipePriceContainerShow = document.getElementById(
     "recipePriceContainer"
