@@ -174,7 +174,6 @@ function hideRecipie() {
     "recipeDetailContainer"
   );
   recipeDetailContainer.classList.add("hidden");
-
 }
 
 function showRecipe(recipe) {
@@ -202,6 +201,7 @@ function showRecipe(recipe) {
   });
 
   const recipeIngredientList = document.getElementById("recipeIngredientList");
+  recipeIngredientList.innerHTML = "";
   recipe.ingredients.forEach((ing) => {
     const ingLi = document.createElement("li");
 

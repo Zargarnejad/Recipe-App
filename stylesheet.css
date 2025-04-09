@@ -442,6 +442,12 @@ li ul.dropdown {
   align-self: flex-end;
 }
 
+.recipeContainerBtn {
+  color:#e92d28;
+  font-size: 2rem;
+  cursor: pointer;
+  
+}
 /* ***************** User spent time on page  ***************** */
 /* **************************************************** */
 
