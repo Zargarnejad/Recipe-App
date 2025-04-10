@@ -27,6 +27,14 @@ h2.mainTitles {
   font-weight: 600;
 }
 
+h3 {
+  color: #e92d28;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
 p {
   text-align: justify;
   margin-bottom: 1.5rem;
@@ -202,6 +210,14 @@ li ul.dropdown {
 .recipeDescription {
   margin-top: 1.5rem;
 }
+.recipeDescription h3 {
+  color: black;
+  text-align: left;
+}
+
+/***********************************************
+  Form stylesheet
+ ***********************************************/
 
 .formStyle {
   display: flex;
@@ -231,7 +247,6 @@ li ul.dropdown {
 }
 #descriptionArea {
   height: 7rem;
-  border-radius: 0.5rem;
   border-color: #f4f4f5;
 }
 .addIng {
@@ -294,8 +309,9 @@ li ul.dropdown {
   font-size: larg;
 }
 
-/* *****************recipes page - grid ***************** */
-/* **************************************************** */
+/***********************************************
+  Title box stylesheet
+ ***********************************************/
 
 .titleBox {
   background-color: rgb(231, 230, 230);
@@ -314,6 +330,10 @@ li ul.dropdown {
   margin-top: 5rem;
   text-align: center;
 }
+
+/***********************************************
+  recipes page stylesheet
+ ***********************************************/
 
 #cards-container {
   max-width: 1000px;
@@ -399,8 +419,9 @@ li ul.dropdown {
   margin-bottom: 2rem;
 }
 
-/* ***************** Timer Box styles ***************** */
-/* **************************************************** */
+/***********************************************
+  Timer Box  stylesheet
+ ***********************************************/
 
 .timeContainer {
   display: none;
@@ -443,13 +464,14 @@ li ul.dropdown {
 }
 
 .recipeContainerBtn {
-  color:#e92d28;
+  color: #e92d28;
   font-size: 2rem;
   cursor: pointer;
-  
 }
-/* ***************** User spent time on page  ***************** */
-/* **************************************************** */
+
+/***********************************************
+  User spent time on page stylesheet
+ ***********************************************/
 
 .userSpendTime {
   display: flex;
@@ -468,8 +490,9 @@ li ul.dropdown {
   margin-bottom: 0;
 }
 
-/* ***************** Show ingredients   ***************** */
-/* **************************************************** */
+/***********************************************
+  Show ingredients and Prices  stylesheet
+ ***********************************************/
 
 .showIngredientsContainer {
   display: flex;
@@ -501,7 +524,7 @@ li ul.dropdown {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(50, 50, 50, 0.5);
   z-index: 999;
   display: none;
 }
@@ -534,8 +557,9 @@ li ul.dropdown {
   border-radius: 0.5rem;
 }
 
-/* ***************** Show each recipe   ***************** */
-/* **************************************************** */
+/***********************************************
+  Display each recipe  stylesheet
+ ***********************************************/
 
 .foodImageDiv {
   margin: 1rem;
