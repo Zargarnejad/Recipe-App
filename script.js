@@ -1,3 +1,6 @@
+// ********************** Global Variabels***********************/
+// *************************************************************/
+
 let recipes;
 let recipePrice;
 
@@ -13,7 +16,12 @@ let categories = [
   { id: 5, name: "Drink" },
   { id: 6, name: "Soup" },
   { id: 7, name: "Dessert" },
+  { id: 8, name: "Chicken" },
+  { id: 9, name: "Meat" },
 ];
+
+// **********************Fetch functions***********************/
+// ***********************************************************/
 
 async function fetchRecipes() {
   try {
@@ -39,6 +47,9 @@ async function fetchRecipePrices() {
 }
 fetchRecipes();
 fetchRecipePrices();
+
+// ********************** AddListeners **********************/
+// *********************************************************/
 
 document
   .getElementById("addRecipeBtn")
@@ -67,6 +78,8 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 
 // ************************* Functions **************************/
 // *************************************************************/
+
+//********************* Show recipes in grid **********************/
 
 function showRecipesInGrid() {
   const recipesContainer = document.getElementById("cards-container");
@@ -139,10 +152,12 @@ function addRecipeToGrid(recipeObject) {
   recipeMoreInfo.appendChild(recipeCookingTime);
 
   /* add amount of ingrediant */
+
   const ingCountainer = document.createElement("div");
   ingCountainer.classList.add("cardCookTime");
 
   /* add amount of ingrediant */
+
   const cardRecipeIng = document.createElement("p");
   cardRecipeIng.classList.add("card-ing");
   cardTitleLink.appendChild(cardRecipeIng);
@@ -163,8 +178,8 @@ function addRecipeToGrid(recipeObject) {
   });
 }
 
-/////************************************************* */
-/////************************************************* */
+//********************* Hide main page **********************/
+
 
 function hideRecipie() {
   const mainContainer = document.getElementById("mainContainer");
@@ -175,6 +190,8 @@ function hideRecipie() {
   );
   recipeDetailContainer.classList.add("hidden");
 }
+
+//********************* Display each recipe **********************/
 
 function showRecipe(recipe) {
   const mainContainer = document.getElementById("mainContainer");
@@ -221,12 +238,15 @@ function showRecipe(recipe) {
   const recipeDescription = document.getElementById("recipeDescription");
   recipeDescription.innerHTML = recipe.description;
 }
-/////************************************************* */
-/////************************************************* */
+
+//********************* Show the price of each recipe **********************/
+
 function priceClick(recipe) {
   const recipePriceContainerShow = document.getElementById(
     "recipePriceContainer"
   );
+
+  /* create a form for showing prices */
 
   const recipeIngList = document.getElementById("ingredientsList");
   recipeIngList.innerHTML = "";
@@ -255,6 +275,8 @@ function priceClick(recipe) {
     document.getElementById("overlay").style.display = "none";
   });
 }
+
+/* calculate the price*/
 
 function getIngredientPrice(ingName) {
   for (let i = 0; i < recipePrice.length; i++) {
@@ -557,7 +579,7 @@ function categoryItemClick(categoryName) {
   renderRecipesInGrid(categoriesRecipe);
 }
 
-// //************************ render function  ************************/
+//************************ render function  ************************/
 
 function renderRecipesInGrid(recipeList) {
   const recipesContainer = document.getElementById("cards-container");
